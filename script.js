@@ -16,7 +16,7 @@ gerarValorAleatorio = () => {
     return Math.floor(Math.random() * 671);
 }
 
-pegarPersonagem = () => {
+pegarPersonagem = (numeroImagem) => {
     let numeroAleatorio = gerarValorAleatorio();
     return fetch(`https://rickandmortyapi.com/api/character/${numeroAleatorio}`, {
         method:'GET',
@@ -25,20 +25,30 @@ pegarPersonagem = () => {
             "Content-type": 'application/json'
         }
     }).then((response) => response.json()).then((data) => {
-        imagem.src = data.image;
-        imagem2.src = data.image;
-        imagem3.src = data.image;
-        imagem.alt = data.name;
-        nomeDoPersonagem.innerHTML = data.name;
-        nomeDoPersonagem2.innerHTML = data.name;
-        nomeDoPersonagem3.innerHTML = data.name;
-        especieDoPersonagem.innerHTML = data.species;
-        especieDoPersonagem2.innerHTML = data.species;
-        especieDoPersonagem3.innerHTML = data.species;
-        condicao.innerHTML = data.status;
-        condicao2.innerHTML = data.status;
-        condicao3.innerHTML = data.status;
+        if (numeroImagem === 1) {
+            imagem.src = data.image;
+            imagem.alt = data.name;
+            nomeDoPersonagem.innerHTML = data.name;
+            especieDoPersonagem.innerHTML = data.species;
+            condicao.innerHTML = data.status;
+        } else if (numeroImagem === 2) {
+            imagem2.src = data.image;
+            imagem2.alt = data.name;
+            nomeDoPersonagem2.innerHTML = data.name;
+            especieDoPersonagem2.innerHTML = data.species;
+            condicao2.innerHTML = data.status;
+        } else if (numeroImagem === 3) {
+            imagem3.src = data.image;
+            imagem3.alt = data.name;
+            nomeDoPersonagem3.innerHTML = data.name;
+            especieDoPersonagem3.innerHTML = data.species;
+            condicao3.innerHTML = data.status;
+        }
     });
 }
 
-botao.onclick = pegarPersonagem;
+botao.onclick = () => {
+    pegarPersonagem(1);
+    pegarPersonagem(2);
+    pegarPersonagem(3);
+};
